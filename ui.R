@@ -6,19 +6,56 @@
 library(DT)
 library(shiny)
 library(bslib)
+library(tidyverse)
 library(flexdashboard)
 
 shinyUI(fluidPage(
 
     # theme  
-    # theme = bslib::bs_theme(),
+    theme = bs_theme(),
   
-    # application title
+    # application title (navbar layout)
     navbarPage("POKEBOARD",
+        tabPanel(":: introduction",
+                 fluidRow(column(12, h2("Welcome to the POKEBOARD!")))
+        ),
         tabPanel(":: data",
                  fluidRow(column(12, dataTableOutput("dataTable")))
         ),
-        tabPanel(":: pokemon viewer"),
+        tabPanel(":: pokemon viewer",
+                 
+                 fluidRow(
+                   column(3,
+                     wellPanel(
+                       uiOutput("image"),
+                       div(
+                         h3(textOutput("selectedPokemon0")), 
+                         align = "center",
+                       ),
+                     )
+                   ),
+                   #
+                   # Search feature
+                   column(3,
+                     wellPanel(
+                       selectInput(
+                         inputId = "search1",
+                         label = "Select Pokemon",
+                         choices = data$Name
+                       )
+                     )
+                   ),
+                   column(3,
+                      uiOutput("search2")
+                   )
+                 ),
+                 
+                 # Pokemon picture
+                 # Types (text or images?)
+                 # Generation number
+                 # Total (sum of all stats)
+                 # All other stats
+        ),
         tabPanel(":: compare pokemon")
     )
 ))
