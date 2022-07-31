@@ -17,39 +17,32 @@ shinyUI(fluidPage(
     # application title (navbar layout)
     navbarPage("POKEBOARD",
         tabPanel(":: introduction",
-                 fluidRow(column(12, h2("Welcome to the POKEBOARD!")))
+          fluidRow(column(12, h2("Welcome to the POKEBOARD!")))
         ),
         tabPanel(":: data",
-                 fluidRow(column(12, dataTableOutput("dataTable")))
+          fluidRow(column(12, dataTableOutput("dataTable")))
         ),
         tabPanel(":: pokemon viewer",
-                 
-                 fluidRow(
-                   column(3,
-                     wellPanel(
-                       uiOutput("image"),
-                       div(
-                         h3(textOutput("selectedPokemon0")), 
-                         align = "center",
-                       ),
-                     )
-                   ),
-                   #
-                   # Search feature
-                   column(3,
-                     wellPanel(
-                       selectInput(
-                         inputId = "search1",
-                         label = "Select Pokemon",
-                         choices = data$Name
-                       )
-                     )
-                   ),
-                   column(3,
-                      uiOutput("search2")
-                   )
+          fluidRow(
+             column(3,
+               wellPanel(
+                 uiOutput("image"),
+                 div(
+                   h3(htmlOutput("viewer")), 
+                   align = "center",
                  ),
-                 
+               )
+             ),
+             # Search feature
+             column(3,
+               uiOutput("pokemonSelect")
+             ),
+             column(3,
+                #conditionalPanel("length(filter(data, data$Name == )[[2]]) < 1",
+                    uiOutput("formeSelect")
+                #)
+             )
+          )
                  # Pokemon picture
                  # Types (text or images?)
                  # Generation number
